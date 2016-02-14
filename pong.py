@@ -22,10 +22,10 @@ paddle2_pos = [WIDTH - HALF_PAD_WIDTH, HEIGHT / 2]
 
 PUCK_COLOR = 'Aqua'
 PUCK_OUTLINE = 'White'
-paddle_1_fill = 'Aqua'
-paddle_1_outline = 'White'
-paddle_2_fill = paddle_1_fill
-paddle_2_outline = paddle_1_outline
+paddle1_fill = 'Aqua'
+paddle1_outline = 'White'
+paddle2_fill = paddle1_fill
+paddle2_outline = paddle1_outline
 
 
 
@@ -83,11 +83,15 @@ def draw(canvas):
         spawn_puck(RIGHT)
 
     # update paddle's vertical position, keep paddle on the screen
+    if paddle1_pos > HALF_PAD_HEIGHT and paddle1_pos < HEIGHT - HALF_PAD_HEIGHT:
+        paddle1_pos += paddle1_vel[1]
+    elif paddle2_pos > HALF_PAD_HEIGHT and paddle2_pos < HEIGHT - HALF_PAD_HEIGHT:
+        paddle2_pos += paddle2_vel[1]
 
     # draw left paddle
-    canvas.draw_polygon([[0, HEIGHT / 2 - PAD_HEIGHT / 2], [PAD_WIDTH, HEIGHT / 2 - PAD_HEIGHT / 2], [PAD_WIDTH, HEIGHT / 2 + PAD_HEIGHT / 2], [0, HEIGHT / 2 + PAD_HEIGHT / 2]], 1, paddle_1_outline, paddle_1_fill)
+    canvas.draw_polygon([[0, HEIGHT / 2 - PAD_HEIGHT / 2], [PAD_WIDTH, HEIGHT / 2 - PAD_HEIGHT / 2], [PAD_WIDTH, HEIGHT / 2 + PAD_HEIGHT / 2], [0, HEIGHT / 2 + PAD_HEIGHT / 2]], 1, paddle1_outline, paddle1_fill)
     # draw right paddle
-    canvas.draw_polygon([[WIDTH - PAD_WIDTH, HEIGHT / 2 - PAD_HEIGHT / 2], [WIDTH, HEIGHT / 2 - PAD_HEIGHT / 2], [WIDTH, HEIGHT / 2 + PAD_HEIGHT / 2], [WIDTH - PAD_WIDTH, HEIGHT / 2 + PAD_HEIGHT / 2]], 1, paddle_2_outline, paddle_2_fill)
+    canvas.draw_polygon([[WIDTH - PAD_WIDTH, HEIGHT / 2 - PAD_HEIGHT / 2], [WIDTH, HEIGHT / 2 - PAD_HEIGHT / 2], [WIDTH, HEIGHT / 2 + PAD_HEIGHT / 2], [WIDTH - PAD_WIDTH, HEIGHT / 2 + PAD_HEIGHT / 2]], 1, paddle2_outline, paddle2_fill)
 
     # determine whether paddle and puck collide
 
