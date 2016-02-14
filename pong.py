@@ -7,6 +7,8 @@ import random
 WIDTH = 600
 HEIGHT = 400
 BALL_RADIUS = 20
+BALL_COLOR = 'Aqua'
+BALL_OUTLINE = 'White'
 PAD_WIDTH = 8
 PAD_HEIGHT = 80
 HALF_PAD_WIDTH = PAD_WIDTH / 2
@@ -37,7 +39,7 @@ def draw(canvas):
     # update ball
 
     # draw ball
-
+    canvas.draw_circle((WIDTH/2, HEIGHT/2), BALL_RADIUS, 1, BALL_OUTLINE, BALL_COLOR)
     # update paddle's vertical position, keep paddle on the screen
 
     # draw paddles
