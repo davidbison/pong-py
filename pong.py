@@ -6,10 +6,10 @@ import random
 # initialize globals - pos and vel encode vertical info for paddles
 WIDTH = 600
 HEIGHT = 400
-BALL_RADIUS = 20
-BALL_COLOR = 'Aqua'
-BALL_OUTLINE = 'White'
-ball_pos = [WIDTH / 2, HEIGHT / 2]
+PUCK_RADIUS = 20
+PUCK_COLOR = 'Aqua'
+PUCK_OUTLINE = 'White'
+puck_pos = [WIDTH / 2, HEIGHT / 2]
 PAD_WIDTH = 8
 PAD_HEIGHT = 80
 HALF_PAD_WIDTH = PAD_WIDTH / 2
@@ -18,17 +18,18 @@ LEFT = False
 RIGHT = True
 
 
-# initialize ball_pos and ball_vel for new bal in middle of table
-# if direction is RIGHT, the ball's velocity is upper right, else upper left
-def spawn_ball(direction):
-    global ball_pos, ball_vel # these are vectors stored as lists
-    ball_pos = [WIDTH / 2, HEIGHT / 2]
+
+# initialize puck_pos and puck_vel for new bal in middle of table
+# if direction is RIGHT, the puck's velocity is upper right, else upper left
+def spawn_puck(direction):
+    global puck_pos, puck_vel # these are vectors stored as lists
+    puck_pos = [WIDTH / 2, HEIGHT / 2]
     if direction:
         # vertical velocity: random.randrange(60, 180)
         # horizontal velocity: random.randrange(120, 240)
-        ball_vel = [random.randrange(1, 5), -random.randrange(1, 5)]
+        puck_vel = [random.randrange(1, 5), -random.randrange(1, 5)]
     else:
-        ball_vel = [-random.randrange(1, 5), -random.randrange(1, 5)]
+        puck_vel = [-random.randrange(1, 5), -random.randrange(1, 5)]
 
 
 
@@ -40,36 +41,42 @@ def new_game():
     # randomizes direction of puck at new game
     spawn_direction = random.randrange(1, 3)
     if spawn_direction == 1:
-        spawn_ball(LEFT)
+        spawn_puck(LEFT)
     elif spawn_direction == 2:
-        spawn_ball(RIGHT)
+        spawn_puck(RIGHT)
 
 
 
 def draw(canvas):
-    global score1, score2, paddle1_pos, paddle2_pos, ball_pos, ball_vel
+    global score1, score2, paddle1_pos, paddle2_pos, puck_pos, puck_vel
 
     # draw mid line and gutters
     canvas.draw_line([WIDTH / 2, 0],[WIDTH / 2, HEIGHT], 1, "White")
     canvas.draw_line([PAD_WIDTH, 0],[PAD_WIDTH, HEIGHT], 1, "White")
     canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")
 
-    # update ball
-    ball_pos[0] += ball_vel[0]
-    ball_pos[1] += ball_vel[1]
+    # update puck
+    puck_pos[0] += puck_vel[0]
+    puck_pos[1] += puck_vel[1]
 
-    # draw ball
-    canvas.draw_circle(ball_pos, BALL_RADIUS, 2, BALL_OUTLINE, BALL_COLOR)
+    # draw puck
+    canvas.draw_circle(puck_pos, PUCK_RADIUS, 2, PUCK_OUTLINE, PUCK_COLOR)
 
-    # reflect ball against top and bottom walls
-    if ball_pos[1] <= BALL_RADIUS or ball_pos[1] >= (HEIGHT - BALL_RADIUS):
-        ball_vel[1] = -ball_vel[1]
+    # reflect puck against top and bottom walls
+    if puck_pos[1] <= PUCK_RADIUS or puck_pos[1] >= (HEIGHT - PUCK_RADIUS):
+        puck_vel[1] = -puck_vel[1]
+
+    # puck respawns when it touches/collides with gutters
+    if (puck_pos[0]-PUCK_RADIUS) <= PAD_WIDTH:
+        spawn_puck(LEFT)
+    elif (puck_pos[0]+PUCK_RADIUS) >= (WIDTH - PAD_WIDTH):
+        spawn_puck(RIGHT)
 
     # update paddle's vertical position, keep paddle on the screen
 
     # draw paddles
 
-    # determine whether paddle and ball collide
+    # determine whether paddle and puck collide
 
     # draw scores
 
