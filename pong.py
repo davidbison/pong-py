@@ -86,7 +86,7 @@ def draw(canvas):
             puck_vel[0] = puck_vel[0] + (puck_vel[0] * .1)
             puck_vel[1] = puck_vel[1] + (puck_vel[1] * .1)
         else:
-            score1 += 1
+            score2 += 1
             spawn_puck(RIGHT)
     elif puck_pos[0] >= WIDTH - PAD_WIDTH - PUCK_RADIUS:
         if paddle2_pos + HALF_PAD_HEIGHT > puck_pos[1] and paddle2_pos - HALF_PAD_HEIGHT < puck_pos[1]:
@@ -94,7 +94,7 @@ def draw(canvas):
             puck_vel[0] = puck_vel[0] + (puck_vel[0] * .1)
             puck_vel[1] = puck_vel[1] + (puck_vel[1] * .1)
         else:
-            score2 += 1
+            score1 += 1
             spawn_puck(LEFT)
 
     # update paddle's vertical position, keep paddle on the screen
