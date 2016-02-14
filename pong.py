@@ -27,6 +27,9 @@ paddle1_outline = 'White'
 paddle2_fill = paddle1_fill
 paddle2_outline = paddle1_outline
 
+score1 = 0
+score2 = 0
+
 
 
 # initialize puck_pos and puck_vel for new bal in middle of table
@@ -83,6 +86,7 @@ def draw(canvas):
             puck_vel[0] = puck_vel[0] + (puck_vel[0] * .1)
             puck_vel[1] = puck_vel[1] + (puck_vel[1] * .1)
         else:
+            score1 += 1
             spawn_puck(RIGHT)
     elif puck_pos[0] >= WIDTH - PAD_WIDTH - PUCK_RADIUS:
         if paddle2_pos + HALF_PAD_HEIGHT > puck_pos[1] and paddle2_pos - HALF_PAD_HEIGHT < puck_pos[1]:
@@ -90,6 +94,7 @@ def draw(canvas):
             puck_vel[0] = puck_vel[0] + (puck_vel[0] * .1)
             puck_vel[1] = puck_vel[1] + (puck_vel[1] * .1)
         else:
+            score2 += 1
             spawn_puck(LEFT)
 
     # update paddle's vertical position, keep paddle on the screen
@@ -109,10 +114,9 @@ def draw(canvas):
     # draw right paddle
     canvas.draw_polygon([[WIDTH - PAD_WIDTH, paddle2_pos - HALF_PAD_HEIGHT], [WIDTH, paddle2_pos - HALF_PAD_HEIGHT], [WIDTH, paddle2_pos + HALF_PAD_HEIGHT], [WIDTH - PAD_WIDTH, paddle2_pos + HALF_PAD_HEIGHT]], 1, paddle2_outline, paddle2_fill)
 
-    # determine whether paddle and puck collide
-
     # draw scores
-
+    canvas.draw_text(str(score1), (WIDTH / 2 - 25, 25), 25, "White")
+    canvas.draw_text(str(score2), (WIDTH / 2 + 13, 25), 25, "White")
 
 
 def keydown(key):
