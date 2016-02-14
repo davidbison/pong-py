@@ -17,8 +17,8 @@ RIGHT = True
 puck_pos = [WIDTH / 2, HEIGHT / 2]
 paddle1_pos = HEIGHT / 2
 paddle2_pos = HEIGHT / 2
-paddle1_vel = [0, 0]
-paddle2_vel = [0, 0]
+paddle1_vel = 0
+paddle2_vel = 0
 
 PUCK_COLOR = 'Aqua'
 PUCK_OUTLINE = 'White'
@@ -83,7 +83,16 @@ def draw(canvas):
         spawn_puck(RIGHT)
 
     # update paddle's vertical position, keep paddle on the screen
-
+    if paddle1_pos <= HALF_PAD_HEIGHT:
+        paddle1_pos = HALF_PAD_HEIGHT
+    elif paddle1_pos >= HEIGHT - HALF_PAD_HEIGHT:
+        paddle1_pos = HEIGHT - HALF_PAD_HEIGHT
+    elif paddle2_pos <= HALF_PAD_HEIGHT:
+        paddle2_pos = HALF_PAD_HEIGHT
+    elif paddle2_pos >= HEIGHT - HALF_PAD_HEIGHT:
+        paddle2_pos = HEIGHT - HALF_PAD_HEIGHT
+    paddle1_pos += paddle1_vel
+    paddle2_pos += paddle2_vel
 
     # draw left paddle
     canvas.draw_polygon([[0, paddle1_pos - HALF_PAD_HEIGHT], [PAD_WIDTH, paddle1_pos - HALF_PAD_HEIGHT], [PAD_WIDTH, paddle1_pos + HALF_PAD_HEIGHT], [0, paddle1_pos + HALF_PAD_HEIGHT]], 1, paddle1_outline, paddle1_fill)
@@ -98,9 +107,25 @@ def draw(canvas):
 
 def keydown(key):
     global paddle1_vel, paddle2_vel
+    # left paddle up with "W", down with "S"
+    if key == 87:
+        paddle1_vel -= 4
+    if key == 83:
+        paddle1_vel += 4
+    # right paddle up with "Up arrow", down with "Down arrow"
+    if key == 38:
+        paddle2_vel -= 4
+    if key == 40:
+        paddle2_vel += 4
 
 def keyup(key):
     global paddle1_vel, paddle2_vel
+    # left paddle up with "S", down with "W"
+    if key == 83 or key == 87:
+        paddle1_vel = 0
+    # right paddle up with "Up arrow", down with "Down arrow"
+    if key == 40 or key == 38:
+        paddle2_vel = 0
 
 
 # create frame
