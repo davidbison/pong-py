@@ -9,6 +9,7 @@ HEIGHT = 400
 BALL_RADIUS = 20
 BALL_COLOR = 'Aqua'
 BALL_OUTLINE = 'White'
+ball_pos = [WIDTH / 2, HEIGHT / 2]
 PAD_WIDTH = 8
 PAD_HEIGHT = 80
 HALF_PAD_WIDTH = PAD_WIDTH / 2
@@ -16,19 +17,23 @@ HALF_PAD_HEIGHT = PAD_HEIGHT / 2
 LEFT = False
 RIGHT = True
 
-ball_pos = [WIDTH / 2, HEIGHT / 2]
-vel = [0, 1]
 
 # initialize ball_pos and ball_vel for new bal in middle of table
 # if direction is RIGHT, the ball's velocity is upper right, else upper left
 def spawn_ball(direction):
     global ball_pos, ball_vel # these are vectors stored as lists
+    ball_pos = [WIDTH / 2, HEIGHT / 2]
+    ball_vel = [1, -1]
+
 
 
 # define event handlers
 def new_game():
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are numbers
     global score1, score2  # these are ints
+    spawn_ball(LEFT)
+
+
 
 def draw(canvas):
     global score1, score2, paddle1_pos, paddle2_pos, ball_pos, ball_vel
@@ -37,13 +42,15 @@ def draw(canvas):
     # draw mid line and gutters
     canvas.draw_line([WIDTH / 2, 0],[WIDTH / 2, HEIGHT], 1, "White")
     canvas.draw_line([PAD_WIDTH, 0],[PAD_WIDTH, HEIGHT], 1, "White")
-    canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 2, "White")
+    canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")
 
     # update ball
-    ball_pos[0] += vel[0]
-    ball_pos[1] += vel[1]
+    ball_pos[0] += ball_vel[0]
+    ball_pos[1] += ball_vel[1]
+
     # draw ball
-    canvas.draw_circle(ball_pos, BALL_RADIUS, 1, BALL_OUTLINE, BALL_COLOR)
+    canvas.draw_circle(ball_pos, BALL_RADIUS, 2, BALL_OUTLINE, BALL_COLOR)
+
     # update paddle's vertical position, keep paddle on the screen
 
     # draw paddles
@@ -51,6 +58,8 @@ def draw(canvas):
     # determine whether paddle and ball collide
 
     # draw scores
+
+
 
 def keydown(key):
     global paddle1_vel, paddle2_vel
