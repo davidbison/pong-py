@@ -38,7 +38,6 @@ def new_game():
 def draw(canvas):
     global score1, score2, paddle1_pos, paddle2_pos, ball_pos, ball_vel
 
-
     # draw mid line and gutters
     canvas.draw_line([WIDTH / 2, 0],[WIDTH / 2, HEIGHT], 1, "White")
     canvas.draw_line([PAD_WIDTH, 0],[PAD_WIDTH, HEIGHT], 1, "White")
@@ -50,6 +49,10 @@ def draw(canvas):
 
     # draw ball
     canvas.draw_circle(ball_pos, BALL_RADIUS, 2, BALL_OUTLINE, BALL_COLOR)
+
+    # reflect ball against top and bottom walls
+    if ball_pos[1] <= BALL_RADIUS or ball_pos[1] >= (HEIGHT - BALL_RADIUS):
+        ball_vel[1] = -ball_vel[1]
 
     # update paddle's vertical position, keep paddle on the screen
 
