@@ -37,9 +37,9 @@ def spawn_puck(direction):
     if direction:
         # vertical velocity: random.randrange(60, 180)
         # horizontal velocity: random.randrange(120, 240)
-        puck_vel = [random.randrange(3, 6), -random.randrange(3, 6)]
+        puck_vel = [random.randrange(3, 5), -random.randrange(3, 5)]
     else:
-        puck_vel = [-random.randrange(3, 6), -random.randrange(3, 6)]
+        puck_vel = [-random.randrange(3, 5), -random.randrange(3, 5)]
 
 
 
@@ -80,11 +80,15 @@ def draw(canvas):
     if puck_pos[0] <= PAD_WIDTH + PUCK_RADIUS:
         if paddle1_pos + HALF_PAD_HEIGHT > puck_pos[1] and paddle1_pos - HALF_PAD_HEIGHT < puck_pos[1]:
             puck_vel[0] = -puck_vel[0]
+            puck_vel[0] = puck_vel[0] + (puck_vel[0] * .1)
+            puck_vel[1] = puck_vel[1] + (puck_vel[1] * .1)
         else:
             spawn_puck(RIGHT)
     elif puck_pos[0] >= WIDTH - PAD_WIDTH - PUCK_RADIUS:
         if paddle2_pos + HALF_PAD_HEIGHT > puck_pos[1] and paddle2_pos - HALF_PAD_HEIGHT < puck_pos[1]:
             puck_vel[0] = -puck_vel[0]
+            puck_vel[0] = puck_vel[0] + (puck_vel[0] * .1)
+            puck_vel[1] = puck_vel[1] + (puck_vel[1] * .1)
         else:
             spawn_puck(LEFT)
 
