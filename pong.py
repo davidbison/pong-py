@@ -37,9 +37,9 @@ def spawn_puck(direction):
     if direction:
         # vertical velocity: random.randrange(60, 180)
         # horizontal velocity: random.randrange(120, 240)
-        puck_vel = [random.randrange(1, 5), -random.randrange(1, 5)]
+        puck_vel = [random.randrange(3, 6), -random.randrange(3, 6)]
     else:
-        puck_vel = [-random.randrange(1, 5), -random.randrange(1, 5)]
+        puck_vel = [-random.randrange(3, 6), -random.randrange(3, 6)]
 
 
 
@@ -76,11 +76,17 @@ def draw(canvas):
     if puck_pos[1] <= PUCK_RADIUS or puck_pos[1] >= (HEIGHT - PUCK_RADIUS):
         puck_vel[1] = -puck_vel[1]
 
-    # puck respawns when it touches/collides with gutters
-    if (puck_pos[0]-PUCK_RADIUS) <= PAD_WIDTH:
-        spawn_puck(RIGHT)
-    elif (puck_pos[0]+PUCK_RADIUS) >= (WIDTH - PAD_WIDTH):
-        spawn_puck(LEFT)
+    # puck respawns when it touches/collides with gutters, reflects when it hits a paddle
+    if puck_pos[0] <= PAD_WIDTH + PUCK_RADIUS:
+        if paddle1_pos + HALF_PAD_HEIGHT > puck_pos[1] and paddle1_pos - HALF_PAD_HEIGHT < puck_pos[1]:
+            puck_vel[0] = -puck_vel[0]
+        else:
+            spawn_puck(RIGHT)
+    elif puck_pos[0] >= WIDTH - PAD_WIDTH - PUCK_RADIUS:
+        if paddle2_pos + HALF_PAD_HEIGHT > puck_pos[1] and paddle2_pos - HALF_PAD_HEIGHT < puck_pos[1]:
+            puck_vel[0] = -puck_vel[0]
+        else:
+            spawn_puck(LEFT)
 
     # update paddle's vertical position, keep paddle on the screen
     if paddle1_pos <= HALF_PAD_HEIGHT:
@@ -109,14 +115,14 @@ def keydown(key):
     global paddle1_vel, paddle2_vel
     # left paddle up with "W", down with "S"
     if key == 87:
-        paddle1_vel -= 4
+        paddle1_vel -= 6
     if key == 83:
-        paddle1_vel += 4
+        paddle1_vel += 6
     # right paddle up with "Up arrow", down with "Down arrow"
     if key == 38:
-        paddle2_vel -= 4
+        paddle2_vel -= 6
     if key == 40:
-        paddle2_vel += 4
+        paddle2_vel += 6
 
 def keyup(key):
     global paddle1_vel, paddle2_vel
