@@ -78,9 +78,9 @@ def draw(canvas):
 
     # puck respawns when it touches/collides with gutters
     if (puck_pos[0]-PUCK_RADIUS) <= PAD_WIDTH:
-        spawn_puck(LEFT)
-    elif (puck_pos[0]+PUCK_RADIUS) >= (WIDTH - PAD_WIDTH):
         spawn_puck(RIGHT)
+    elif (puck_pos[0]+PUCK_RADIUS) >= (WIDTH - PAD_WIDTH):
+        spawn_puck(LEFT)
 
     # update paddle's vertical position, keep paddle on the screen
     if paddle1_pos <= HALF_PAD_HEIGHT:
