@@ -34,7 +34,13 @@ def spawn_ball(direction):
 def new_game():
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are numbers
     global score1, score2  # these are ints
-    spawn_ball(LEFT)
+
+    # randomizes direction of puck at new game
+    spawn_direction = random.randrange(1, 3)
+    if spawn_direction == 1:
+        spawn_ball(LEFT)
+    elif spawn_direction == 2:
+        spawn_ball(RIGHT)
 
 
 
