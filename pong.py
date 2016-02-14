@@ -40,7 +40,8 @@ def draw(canvas):
     canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 2, "White")
 
     # update ball
-
+    ball_pos[0] += vel[0]
+    ball_pos[1] += vel[1]
     # draw ball
     canvas.draw_circle(ball_pos, BALL_RADIUS, 1, BALL_OUTLINE, BALL_COLOR)
     # update paddle's vertical position, keep paddle on the screen
