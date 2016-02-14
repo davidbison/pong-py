@@ -23,10 +23,12 @@ RIGHT = True
 def spawn_ball(direction):
     global ball_pos, ball_vel # these are vectors stored as lists
     ball_pos = [WIDTH / 2, HEIGHT / 2]
-    if direction == RIGHT:
-        ball_vel = [1, -1]
-    elif direction == LEFT:
-        ball_vel = [-1, -1]
+    if direction:
+        # vertical velocity: random.randrange(60, 180)
+        # horizontal velocity: random.randrange(120, 240)
+        ball_vel = [random.randrange(1, 5), -random.randrange(1, 5)]
+    else:
+        ball_vel = [-random.randrange(1, 5), -random.randrange(1, 5)]
 
 
 
