@@ -15,8 +15,8 @@ LEFT = False
 RIGHT = True
 
 puck_pos = [WIDTH / 2, HEIGHT / 2]
-paddle1_pos = [[5,5], [7,7], [8,8], [10,10]]
-paddle2_pos = []
+paddle1_pos = [HALF_PAD_WIDTH, HEIGHT / 2]
+paddle2_pos = [WIDTH - HALF_PAD_WIDTH, HEIGHT / 2]
 #paddle1_vel =
 #paddle2_vel =
 
